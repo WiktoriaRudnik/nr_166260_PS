@@ -4,10 +4,12 @@
 void generatorfrajdy(short [],int);
 void funkcjaa(short [],int);
 void funkcjab(short [],int);
-void funkcjac(short [],int);
+void funkcjac(short [],int,int,int);
+void funkcjad(short [],int);
+void funkcjae(short [],int);
 int main()
 {
-    int n=1001;
+    int n=1001,lewy=-1,prawy=-1;
     const int N=1000;
     short tablica[N];
     printf("liczba elementow:\n");
@@ -16,7 +18,14 @@ int main()
         scanf("%d",&n);
     }
     generatorfrajdy(tablica,n);
-    funkcjaa(tablica,n);
+    /*  TO JEST DO FUNKCJI C
+    printf("\npodaj lewy i prawy(wiekszy lub rowny 0 i mniejszy od n)\n");
+    while(!((prawy>lewy)&&((lewy>0)&&(lewy<n))&&((prawy>0)&&(prawy<n))))
+    {
+        scanf("%d %d",&lewy,&prawy);
+    }
+    */
+    funkcjae(tablica,n);
     return 0;
 }
 void generatorfrajdy(short tab[],int n)
@@ -69,7 +78,54 @@ void funkcjab(short tab[],int n)
         printf("%d ",tab[i]);
     }
 }
-void funkcjac(short tab[],int n)
+void funkcjac(short tab[],int lewy,int prawy,int n)
 {
+    short temp[n];
+    printf("\n");
+    for(int i=0;i<n;++i)
+    {
+        temp[i]=tab[i];
+        printf("%d ",temp[i]);
+    }
+    printf("\n");
 
+    int dlugosc=prawy-lewy;
+    for(int i=0;i<=dlugosc;i++)
+    {
+        tab[lewy+i]=temp[prawy-i];
+    }
+    for(int i=0;i<n;++i)
+    {
+        printf("%d ",tab[i]);
+    }
+}
+void funkcjad(short tab[],int n)
+{
+    int parz=0,nieparz=0;
+    for(int i=0;i<n;++i)
+    {
+        if(tab[i]%2==0)
+            parz++;
+        else
+            nieparz++;
+    }
+    printf("\nParzyste %d i nieparzyste %d",parz,nieparz);
+}
+void funkcjae(short tab[],int n)
+{
+    int maks=0,licznik=1;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if((tab[i]>tab[j])&&(tab[i]>=maks))
+            {
+                if(tab[i]==maks)
+                    licznik++;
+                maks=tab[i];
+                break;
+            }
+        }
+    }
+    printf("\nmaksymalny element: %d , wystapil %d razy",maks,licznik);
 }
